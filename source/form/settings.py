@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'albumApp',
+    'accounts',
 
     'django_bootstrap5',
     'rest_framework',

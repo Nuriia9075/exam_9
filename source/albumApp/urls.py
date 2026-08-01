@@ -14,12 +14,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import path, include
 
-urlpatterns = []
-#     path('admin/', admin.site.urls),
-#     path("", include("albumApp.urls")),
-# ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+from django.urls import path
+
+from albumApp.views.photo import (PhotoListView, PhotoDetailView, PhotoCreateView, PhotoUpdateView,PhotoDeleteView )
+app_name = "albumApp"
+
+urlpatterns = [
+    path('', PhotoListView.as_view(), name='photos-list'),
+    path('photo/<int:pk>/', PhotoDetailView.as_view(), name='photo-detail'),
+    path('update/<int:pk>/', PhotoUpdateView.as_view(), name='photo-update'),
+    path('photos/<int:pk>/delete/', PhotoDeleteView.as_view(), name='photo-delete'),
+    path('create/', PhotoCreateView.as_view(), name='photo-create'),
+    path('photos/', PhotoListView.as_view(), name='photos')
+]

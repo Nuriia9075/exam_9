@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <div class="card my-5">
+        <div class="card-header fs-4 text-center py-3">Удаление статьи "{{ article.title }}"</div>
+        <div class="card-body">
+            <p>Для удаления статьи, введите заголовок</p>
+            <form action="" id="article-form" method="POST">
+                {% csrf_token %}
+                {% bootstrap_form form layout="floating" %}
+            </form>
+        </div>
+        <div class="card-footer text-end py-3">
+            <a href="{% url 'articles:list' %}" class="btn btn-sm btn-success">Отменить</a>
+            <button type="submit" form="article-form" class="btn btn-sm btn-danger">Удалить</button>
+        </div>
+    </div>
+{% endblock %}

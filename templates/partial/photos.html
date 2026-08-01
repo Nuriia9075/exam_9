@@ -1,0 +1,53 @@
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for article in articles %}
+            <div class="col">
+            <a href="{% url 'articles:detail' article.pk %}" class="card-link">
+                <div class="card card-list border-secondary h-100 mb-3">
+                    <div class="card-header d-flex justify-content-between">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <span>{{ article.created_at| date:'Y-m-d' }}</span>
+                    </div>
+                    <div class="card-body text-secondary d-flex flex-column">
+                        <p class="card-text">
+                            {% if article.content %}{{ article.content|truncatewords:5 }}{% else %}---{% endif %}</p>
+                        <p>Статус: {{ article.get_status_display }}</p>
+                        <span>Автор: {% if article.author %}{{ article.author }}{% else %}---{% endif %}</span>
+                        <span>Блог: {% if article.blog %}{{ article.blog.title }}{% else %}---{% endif %}</span>
+                    </div>
+                    <div class="text-end me-3">
+                        <a href="{% url 'articles:update' article.pk %}" class="btn btn-sm btn-outline-warning">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
+                        <a href="{% url 'articles:delete' article.pk %}" class="btn btn-sm btn-outline-danger">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </a>
+                        <div class="d-flex align-items-center border rounded px-2 py-1 bg-light gap-2">
+                            <span id="article-count-{{ article.pk }}" class="like-count">
+                                {{ article.likes.count }}
+                            </span>
+                            <a href="{% url 'articles:api-like' article.pk %}"
+                             class="btn btn-sm btn-outline-secondary btn-like"
+                               data-key="likes"
+                               data-counter-id="article-count-{{ article.pk }}">
+                                {% if request.user in article.likes.all %}
+                                 🩶 Убрать
+                                {% else %}
+                                    ❤️ Like
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            </div>
+        {% empty %}
+            <p>Нет данных</p>
+        {% endfor %}
+    </div>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+
+    {% for article in articles %}
+        {% include 'partial/article_delete_modal.html' with article=article %}
+    {% endfor %}
