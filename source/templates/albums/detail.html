@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <div class="row justify-content-center my-5">
     <div class="col-md-8">
@@ -17,6 +17,12 @@
                         {% firstof object.author.get_full_name object.author.username %}
                     {% endif %}
                 </p>
+                {% if request.user.is_authenticated %}
+                <div class="my-3">
+                    {% url 'albumApp:api-album-favorite' object.pk as album_api_url %}
+                    {% include 'partial/favorite_buttons.html' with item=object api_url=album_api_url %}
+                </div>
+            {% endif %}
                 <p class="text-muted">
                     <strong>Дата создания:</strong> {{ object.created_at|date:"d.m.Y H:i" }}
                 </p>
@@ -38,4 +44,7 @@
          {% include 'partial/photos.html' %}
     </div>
 </div>
+<script src="{% static 'js/favorite_photo.js' %}"></script>
 {% endblock %}
+
+

@@ -1,3 +1,4 @@
+{% load static %}
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
     {% for album in albums %}
         <div class="col">
@@ -10,6 +11,12 @@
                             {% if album.description %}
                                 <p class="card-text text-muted small text-truncate px-2">{{ album.description }}</p>
                             {% endif %}
+                            {% if request.user.is_authenticated %}
+                            <div class="my-3">
+                                {% url 'albumApp:api-album-favorite' object.pk as album_api_url %}
+                                {% include 'partial/favorite_buttons.html' with item=object fav_api_url=album_api_url %}
+                            </div>
+                        {% endif %}
                         </div>
                         <div class="mt-3">
                             {% if not album.is_public %}
@@ -32,3 +39,5 @@
         </div>
     {% endfor %}
 </div>
+<script src="{% static 'js/favorite_photo.js' %}"></script>
+
