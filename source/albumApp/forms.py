@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Photo
+from .models import Photo, Album
 
 
 class PhotoForm(ModelForm):
@@ -22,5 +22,10 @@ class PhotoForm(ModelForm):
             cleaned_data["is_public"] = False
             return cleaned_data
         return cleaned_data
+
+class AlbumForm(ModelForm):
+    class Meta:
+        model = Album
+        fields = ['title', 'description', 'is_public']
 
 

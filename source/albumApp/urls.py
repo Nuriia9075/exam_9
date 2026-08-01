@@ -18,13 +18,19 @@ Including another URLconf
 from django.urls import path
 
 from albumApp.views.photo import (PhotoListView, PhotoDetailView, PhotoCreateView, PhotoUpdateView,PhotoDeleteView )
+from albumApp.views.album import AlbumCreateView, AlbumDetailView, AlbumUpdateView, AlbumDeleteView
 app_name = "albumApp"
 
 urlpatterns = [
     path('', PhotoListView.as_view(), name='photos-list'),
-    path('photo/<int:pk>/', PhotoDetailView.as_view(), name='photo-detail'),
-    path('update/<int:pk>/', PhotoUpdateView.as_view(), name='photo-update'),
+    path('photos/<int:pk>/', PhotoDetailView.as_view(), name='photo-detail'),
+    path('photos/update/<int:pk>/', PhotoUpdateView.as_view(), name='photo-update'),
     path('photos/<int:pk>/delete/', PhotoDeleteView.as_view(), name='photo-delete'),
-    path('create/', PhotoCreateView.as_view(), name='photo-create'),
-    path('photos/', PhotoListView.as_view(), name='photos')
+    path('photos/create/', PhotoCreateView.as_view(), name='photo-create'),
+    path('photos/', PhotoListView.as_view(), name='photos'),
+
+    path('albums/<int:pk>/', AlbumDetailView.as_view(), name='album-detail'),
+    path('albums/update/<int:pk>/', AlbumUpdateView.as_view(), name='album-update'),
+    path('albums/<int:pk>/delete/', AlbumDeleteView.as_view(), name='album-delete'),
+    path('albums/create/', AlbumCreateView.as_view(), name='album-create'),
 ]

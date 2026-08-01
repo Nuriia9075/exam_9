@@ -1,28 +1,43 @@
 {% extends "base.html" %}
-{% block content %}
-    <div class="card my-5 p-3">
-        <div class="row">
-            <div class="col col-md-2">
-                {% if user_obj.profile.avatar %}
-                    <img src="{{ user_obj.profile.avatar.url }}" alt="avatar" style="width: 150px; height: auto;">
-                {% endif %}
-            </div>
-            <div class="col col-md-10">
-                <p>Имя: {{ user_obj.get_full_name }}</p>
-                <p>Дата рождения: {{ user_obj.profile.birth_date|default:"Не указано" }}</p>
-            </div>
-        </div>
-        <div class="card-footer text-end">
-            <a class="btn btn-sm btn-warning me-2" href="{% url 'accounts:edit' user_obj.pk %}">Редактировать профиль</a>
-            <a class="btn btn-sm btn-danger" href="{% url 'accounts:password-change' user_obj.pk %}">Сбросить пароль</a>
-        </div>
-    </div>
 
-    <div class="card p-3 mb-5">
-        <div class="page-header d-flex justify-content-between align-items-center my-4 p-3">
-            <h1>Статьи</h1>
-            <a class="btn btn-sm btn-warning rounded-3" href="{% url 'articles:create' %}">Добавить статью</a>
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-8">
+            <div class="card p-4 shadow-sm bg-light">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <h2 class="mb-1 fw-bold">
+                            {% firstof user_obj.get_full_name user_obj.username %}
+                        </h2>
+                        <p class="text-muted mb-0">@{{ user_obj.username }}</p>
+                    </div>
+                    {% if is_my %}
+                        <div>
+                            <a href="#" class="btn btn-outline-primary">
+                                <i class="fa-regular fa-bookmark me-2"></i>Моё Избранное
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        {% include 'partial/articles.html' %}
     </div>
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-10">
+            <h4 class="mb-3 fw-bold text-secondary">
+                <i class="fa-regular fa-folder-open me-2"></i>Альбомы пользователя
+            </h4>
+            {% include 'partial/albums.html' %}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <h4 class="mb-3 fw-bold text-secondary">
+                <i class="fa-regular fa-images me-2"></i>Фотографии без альбомов
+            </h4>
+            {% include 'partial/photos.html' %}
+        </div>
+    </div>
+</div>
 {% endblock %}

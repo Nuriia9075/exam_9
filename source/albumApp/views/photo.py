@@ -1,6 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from albumApp.models import Photo
@@ -53,6 +54,9 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse_lazy('albumApp:photo-detail', kwargs={'pk': self.object.pk})
+
 
 class PhotoUpdateView(LoginRequiredMixin, UpdateView):
     model = Photo
@@ -83,6 +87,13 @@ class PhotoDeleteView(LoginRequiredMixin, DeleteView):
         if obj.author != request.user:
             raise PermissionDenied("Вы не можете удалить чужую фотографию!")
         return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        if self.object.image:
+            self.object.image.delete(save=False)
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
 
 
