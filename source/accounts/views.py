@@ -4,7 +4,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.core.paginator import Paginator
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, TemplateView
 
 from accounts.forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm
 
@@ -32,7 +32,7 @@ class RegisterView(CreateView):
         return redirect_url
 
 
-class UserDetailView(DetailView):
+class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'accounts/user_detail.html'
     context_object_name = 'user_obj'
@@ -49,6 +49,14 @@ class UserDetailView(DetailView):
             context['photos'] = profile_owner.photos.filter(album__isnull=True, is_public=True).order_by('-created_at')
             context['is_my'] = False
         return context
+
+class FavoriteListView(LoginRequiredMixin, TemplateView):
+    template_name = 'accounts/favorite_list.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context['favorite_albums'] = user.favorite_albums.filter(is_public=True).order_by('-created_at')
+        context['favorite_albums'] = user.favorite_photos.filter(is_public=True).order_by('-created_at')
 
 class UserChangeView(PermissionRequiredMixin, UpdateView):
     model = User

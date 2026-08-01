@@ -51,9 +51,10 @@ class AlbumUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'albums/update.html'
 
     def dispatch(self, request, *args, **kwargs):
-        if self.get_object().author != request.user:
-            raise PermissionDenied("Это чужой альбом!")
-        return super().dispatch(request, *args, **kwargs)
+        obj = self.get_object()
+        if obj.author == request.user or request.user.has_perm('albumApp.change_album'):
+            return super().dispatch(request, *args, **kwargs)
+        raise PermissionDenied("Это чужой альбом!")
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -71,9 +72,10 @@ class AlbumDeleteView(LoginRequiredMixin, DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
-        if obj.author != request.user:
-            raise PermissionDenied("Вы не можете удалить чужой ввлблм!")
-        return super().dispatch(request, *args, **kwargs)
+        if obj.author == request.user or request.user.has_perm('albumApp.delelte_album'):
+            return super().dispatch(request, *args, **kwargs)
+        raise PermissionDenied("Вы не можете удалить чужой ввлблм!")
+
 
     def form_valid(self, form):
         self.get_object().photos.all().delete()

@@ -33,7 +33,7 @@
                     <strong>Дата создания:</strong> {{ object.created_at|date:"d.m.Y H:i" }}
                 </p>
             </div>
-            {% if request.user == object.author %}
+            {% if request.user == object.author or perms.albumApp.change_photo or perms.albumApp.delete_photo %}
                 <div class="card-footer bg-transparent border-top-0 text-end mb-3 me-3">
                     <a href="{% url 'albumApp:photo-update' object.pk %}" class="btn btn-outline-warning btn-sm me-2">
                         Редактировать <i class="fa-regular fa-pen-to-square ms-1"></i>

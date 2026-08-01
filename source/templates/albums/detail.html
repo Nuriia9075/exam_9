@@ -24,7 +24,7 @@
                      <p class="card-text mt-3 text-secondary">{{ object.description }}<p>
                 {% endif %}
             </div>
-            {% if request.user == object.author %}
+            {% if request.user == object.author or perms.albumApp.change_album or perms.albumApp.delete_album %}
                 <div class="card-footer bg-transparent border-top-0 text-end mb-3 me-3">
                     <a href="{% url 'albumApp:album-update' object.pk %}" class="btn btn-outline-warning btn-sm me-2">
                         Редактировать <i class="fa-regular fa-pen-to-square ms-1"></i>

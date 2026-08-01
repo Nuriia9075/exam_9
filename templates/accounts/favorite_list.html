@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-10 text-center">
+            <h2 class="fw-bold"><i class="fa-regular fa-star text-warning me-2"></i>Моё Избранное</h2>
+            <p class="text-muted">Ваши избранные.</p>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-10">
+            <h4 class="mb-3 fw-bold text-secondary">
+                <i class="fa-regular fa-folder-open me-2"></i>Избанные альбомы
+            </h4>
+            {% include 'partial/albums.html' %}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <h4 class="mb-3 fw-bold text-secondary">
+                <i class="fa-regular fa-images me-2"></i>Избранные фотографий
+            </h4>
+            {% include 'partial/photos.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

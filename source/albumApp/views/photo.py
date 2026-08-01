@@ -65,9 +65,9 @@ class PhotoUpdateView(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
-        if obj.author != request.user:
-            raise PermissionDenied("Вы не можете редактировать чужую фотографию!")
-        return super().dispatch(request, *args, **kwargs)
+        if obj.author == request.user or request.user.has_perm('albumApp.change_photo'):
+            return super().dispatch(request, *args, **kwargs)
+        raise PermissionDenied("Вы не можете редактировать чужую фотографию!")
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -84,9 +84,10 @@ class PhotoDeleteView(LoginRequiredMixin, DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
-        if obj.author != request.user:
-            raise PermissionDenied("Вы не можете удалить чужую фотографию!")
-        return super().dispatch(request, *args, **kwargs)
+        if obj.author == request.user or request.user.has_perm('albumApp.delete_photo'):
+            return super().dispatch(request, *args, **kwargs)
+        raise PermissionDenied("Вы не можете удалить чужую фотографию!")
+
 
     def form_valid(self, form):
         success_url = self.get_success_url()

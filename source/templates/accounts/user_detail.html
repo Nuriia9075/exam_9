@@ -14,7 +14,7 @@
                     </div>
                     {% if is_my %}
                         <div>
-                            <a href="#" class="btn btn-outline-primary">
+                            <a href="{% url 'accounts:favorite-list'  request.user.pk %}" class = "btn btn-outline-primary">
                                 <i class="fa-regular fa-bookmark me-2"></i>Моё Избранное
                             </a>
                         </div>
