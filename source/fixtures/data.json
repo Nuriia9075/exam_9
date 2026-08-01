@@ -1,0 +1,270 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$P3vhqtpBp4YcOxcGxtv4Fq$KaHLemu7KaiKq9Ns2BhmOngsNTzAObCnkwqBXKTwLis=",
+        "last_login": "2026-08-01T11:50:38.940Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-08-01T07:39:08.112Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$wgJKWAXIEenoNRoxL3AYbr$XWY4qLTRcD3UnSH8M3uHVgWLvA+WhTLjUet7dlHXQPo=",
+        "last_login": "2026-08-01T11:49:57.453Z",
+        "is_superuser": false,
+        "username": "qwe",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-08-01T09:04:46.684Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "albumApp.album",
+    "pk": 1,
+    "fields": {
+        "title": "new",
+        "description": "",
+        "author": 2,
+        "created_at": "2026-08-01T09:45:53.070Z",
+        "is_public": true,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.album",
+    "pk": 2,
+    "fields": {
+        "title": "qwe",
+        "description": "",
+        "author": 2,
+        "created_at": "2026-08-01T10:04:15.923Z",
+        "is_public": true,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.album",
+    "pk": 3,
+    "fields": {
+        "title": "admin",
+        "description": "admin",
+        "author": 1,
+        "created_at": "2026-08-01T12:48:25.619Z",
+        "is_public": true,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.album",
+    "pk": 4,
+    "fields": {
+        "title": "private",
+        "description": "",
+        "author": 1,
+        "created_at": "2026-08-01T12:49:41.119Z",
+        "is_public": false,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 1,
+    "fields": {
+        "image": "uploads/1/images.jpeg",
+        "caption": "123",
+        "created_at": "2026-08-01T07:44:15.669Z",
+        "author": 1,
+        "album": null,
+        "is_public": true,
+        "token": null,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 2,
+    "fields": {
+        "image": "uploads/1/images_8ge84dH.jpeg",
+        "caption": "123",
+        "created_at": "2026-08-01T07:44:49.965Z",
+        "author": 1,
+        "album": null,
+        "is_public": true,
+        "token": null,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 3,
+    "fields": {
+        "image": "uploads/1/images_gNgsG4Q.jpeg",
+        "caption": "123",
+        "created_at": "2026-08-01T07:44:57.111Z",
+        "author": 1,
+        "album": null,
+        "is_public": true,
+        "token": null,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 4,
+    "fields": {
+        "image": "uploads/1/images_zF2vKHH.jpeg",
+        "caption": "123222",
+        "created_at": "2026-08-01T07:45:26.898Z",
+        "author": 1,
+        "album": null,
+        "is_public": true,
+        "token": null,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 5,
+    "fields": {
+        "image": "uploads/1/images_HLHsWoA.jpeg",
+        "caption": "123",
+        "created_at": "2026-08-01T07:45:52.960Z",
+        "author": 1,
+        "album": null,
+        "is_public": true,
+        "token": null,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 6,
+    "fields": {
+        "image": "uploads/1/images_EJvpdjL.jpeg",
+        "caption": "123",
+        "created_at": "2026-08-01T07:47:55.106Z",
+        "author": 1,
+        "album": null,
+        "is_public": true,
+        "token": "cf2f884e-7381-4e1e-9c26-00e6bc858128",
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 7,
+    "fields": {
+        "image": "uploads/1/images_EsOAjZA.jpeg",
+        "caption": "123",
+        "created_at": "2026-08-01T07:56:43.341Z",
+        "author": 1,
+        "album": null,
+        "is_public": true,
+        "token": "b69b4eff-7eb3-411d-96ed-040de375da11",
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 8,
+    "fields": {
+        "image": "uploads/2/luffy.jpeg",
+        "caption": "qwe",
+        "created_at": "2026-08-01T09:05:56.122Z",
+        "author": 2,
+        "album": null,
+        "is_public": false,
+        "token": null,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 9,
+    "fields": {
+        "image": "uploads/2/luffy_yrUvC5p.jpeg",
+        "caption": "qwe",
+        "created_at": "2026-08-01T09:08:36.639Z",
+        "author": 2,
+        "album": null,
+        "is_public": false,
+        "token": null,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 10,
+    "fields": {
+        "image": "uploads/1/luffy.jpeg",
+        "caption": "private",
+        "created_at": "2026-08-01T10:40:21.742Z",
+        "author": 1,
+        "album": null,
+        "is_public": false,
+        "token": "8c2b5782-7913-4ee3-9c00-dcc365616601",
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 11,
+    "fields": {
+        "image": "uploads/2/luffy_vNROvdl.jpeg",
+        "caption": "qwe",
+        "created_at": "2026-08-01T11:50:20.161Z",
+        "author": 2,
+        "album": null,
+        "is_public": true,
+        "token": null,
+        "favorite_users": []
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 12,
+    "fields": {
+        "image": "uploads/1/luffy_3mbNit2.jpeg",
+        "caption": "my",
+        "created_at": "2026-08-01T12:48:56.565Z",
+        "author": 1,
+        "album": 3,
+        "is_public": true,
+        "token": null,
+        "favorite_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "albumApp.photo",
+    "pk": 13,
+    "fields": {
+        "image": "uploads/1/luffy_tPRV6dF.jpeg",
+        "caption": "1122222222222222222222222",
+        "created_at": "2026-08-01T12:50:44.769Z",
+        "author": 1,
+        "album": 4,
+        "is_public": false,
+        "token": null,
+        "favorite_users": []
+    }
+}
+]

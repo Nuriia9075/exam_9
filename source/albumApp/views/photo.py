@@ -1,8 +1,12 @@
+import uuid
+
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from albumApp.models import Photo
 from albumApp.forms import PhotoForm
@@ -21,7 +25,7 @@ class PhotoListView(ListView):
         queryset = Photo.objects.filter(is_public=True).select_related('author', 'album').order_by('-created_at')
         return queryset
 
-class PhotoDetailView(DetailView):
+class PhotoDetailView(LoginRequiredMixin,DetailView):
     template_name = "photos/detail.html"
     model = Photo
 
@@ -96,7 +100,21 @@ class PhotoDeleteView(LoginRequiredMixin, DeleteView):
         self.object.delete()
         return HttpResponseRedirect(success_url)
 
+class PhotoGenerateTokenView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        photo = get_object_or_404(Photo, pk=kwargs.get('pk'))
+        if request.user.pk==photo.author.pk and  photo.token is None:
+            photo.token = (uuid.uuid4())
+            photo.save()
+        return redirect('albumApp:photo-detail', pk=photo.pk)
 
+class PhotoTokenDetailView(DetailView):
+    model = Photo
+    template_name = "photos/detail.html"
+
+    def get_object(self):
+        token = self.kwargs["token"]
+        return get_object_or_404(Photo, token=token)
 
 
 

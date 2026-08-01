@@ -32,8 +32,8 @@ class Photo(models.Model):
     album = models.ForeignKey(Album, on_delete=models.SET_NULL, blank=True, null=True, related_name='photos',
                               verbose_name="Альбом")
     is_public = models.BooleanField(default=True, verbose_name="Публичная")
-    favorite_users = models.ManyToManyField(User, blank=True, related_name='favorite_photos',
-                                            verbose_name="В избранном")
+    favorite_users = models.ManyToManyField(User, blank=True, related_name='favorite_photos', verbose_name="В избранном")
+    token = models.CharField(max_length=50, blank=True, null=True, unique=True, verbose_name="Токен доступа")
 
     def __str__(self):
         return f"{self.caption} ({self.author.username})"

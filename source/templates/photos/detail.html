@@ -7,7 +7,6 @@
             {% if object.image %}
                 <img src="{{ object.image.url }}" class="card-img-top" alt="{{ object.caption }}">
             {% endif %}
-
             <div class="card-body">
                 <h3 class="card-title">{{ object.caption }}</h3>
                 <hr>
@@ -21,6 +20,13 @@
                         {% firstof object.author.get_full_name object.author.username %}
                     {% endif %}
                 </p>
+                {% if request.user.is_authenticated %}
+                    <div class="my-3">
+                        {% url 'albumApp:api-photo-favorite' object.pk as photo_api_url %}
+                        {% include 'partial/favorite_buttons.html' with item=object api_url=photo_api_url %}
+                    </div>
+                {% endif %}
+
                 <p class="text-muted">
                     <strong>Альбом:</strong>
                     {% if object.album %}
@@ -33,18 +39,41 @@
                     <strong>Дата создания:</strong> {{ object.created_at|date:"d.m.Y H:i" }}
                 </p>
             </div>
+            {% if request.user == object.author %}
+                <div class="card-footer border-top bg-light">
+                    {% if object.token %}
+                        <div class="form-group py-2">
+                            <label class="form-label text-success fw-bold">Ссылка:</label>
+                            <input type="text" class="form-control bg-white" readonly value="{{ request.scheme }}://{{ request.get_host }}{% url 'albumApp:photo-token' object.token %}">
+                        </div>
+                    {% else %}
+                        <div class="d-flex justify-content-between align-items-center py-1">
+                            <form method="post" action="{% url 'albumApp:photo-generate-token' object.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-warning">
+                                    <i class="fa-solid fa-key me-1"></i> Сгенерировать ссылку
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
             {% if request.user == object.author or perms.albumApp.change_photo or perms.albumApp.delete_photo %}
                 <div class="card-footer bg-transparent border-top-0 text-end mb-3 me-3">
-                    <a href="{% url 'albumApp:photo-update' object.pk %}" class="btn btn-outline-warning btn-sm me-2">
-                        Редактировать <i class="fa-regular fa-pen-to-square ms-1"></i>
-                    </a>
-                    <a href="{% url 'albumApp:photo-delete' object.pk %}" class="btn btn-outline-danger btn-sm">
-                        Удалить <i class="fa-regular fa-trash-can ms-1"></i>
-                    </a>
+                    {% if request.user == object.author or perms.albumApp.change_photo %}
+                        <a href="{% url 'albumApp:photo-update' object.pk %}" class="btn btn-outline-warning btn-sm me-2">
+                            Редактировать <i class="fa-regular fa-pen-to-square ms-1"></i>
+                        </a>
+                    {% endif %}
+                    {% if request.user == object.author or perms.albumApp.delete_photo %}
+                        <a href="{% url 'albumApp:photo-delete' object.pk %}" class="btn btn-outline-danger btn-sm">
+                            Удалить <i class="fa-regular fa-trash-can ms-1"></i>
+                        </a>
+                    {% endif %}
                 </div>
             {% endif %}
         </div>
-       {% include 'partial/favorite_users.html'%}
+        {% include 'partial/favorite_users.html' %}
     </div>
 </div>
 {% endblock %}

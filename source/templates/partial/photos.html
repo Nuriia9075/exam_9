@@ -1,10 +1,9 @@
+{% load static %}
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 my-4">
     {% for photo in photos %}
         <div class="col">
             <div class="card h-100 shadow-sm border-secondary">
-                {% if request.user.is_authenticated %}
                     <a href="{% url 'albumApp:photo-detail' photo.pk %}">
-                    {%endif%}
                     {% if photo.image %}
                         <img src="{{ photo.image.url }}" class="card-img-top object-fit-cover" style="height: 240px;" alt="{{ photo.caption }}">
                     {% endif %}
@@ -23,6 +22,12 @@
                                 {% firstof photo.author.get_full_name photo.author.username %}
                             {% endif %}
                         </p>
+                         {% if request.user.is_authenticated %}
+                            <div class="my-3">
+                                 {% url 'albumApp:api-photo-favorite' photo.pk as photo_api_url %}
+                                 {% include 'partial/favorite_buttons.html' with item=photo api_url=photo_api_url %}
+                            </div>
+                        {% endif %}
                         <p class="mb-1">
                             <strong>Альбом:</strong>
                             {% if photo.album %}
@@ -57,3 +62,4 @@
 {% if is_paginated %}
     {% include 'partial/pagination.html' %}
 {% endif %}
+<script src="{% static 'js/favorite_photo.js' %}"></script>
