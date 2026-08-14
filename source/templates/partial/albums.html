@@ -13,8 +13,8 @@
                             {% endif %}
                             {% if request.user.is_authenticated %}
                             <div class="my-3">
-                                {% url 'albumApp:api-album-favorite' object.pk as album_api_url %}
-                                {% include 'partial/favorite_buttons.html' with item=object fav_api_url=album_api_url %}
+                               {% url 'albumApp:api-album-favorite' object.pk as album_api_url %}
+                                {% include 'partial/favorite_buttons.html' with item=object api_url=album_api_url %}
                             </div>
                         {% endif %}
                         </div>
