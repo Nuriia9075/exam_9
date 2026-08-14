@@ -1,6 +1,4 @@
 name: Django CI/CD Pipeline
-env:
-  SECRET_KEY: "django-insecure-@_qiz6lnw#-#a5!l1ip7l7pvu2b4k#)n*f(@6f2o+ff$96-)_$"
 
 on:
   push:
@@ -28,6 +26,8 @@ jobs:
         if [ -f source/requirements.txt ]; then pip install -r source/requirements.txt; fi
 
     - name: Проверка миграций базы данных Django
+      env:
+          SECRET_KEY: "django-insecure-@_qiz6lnw#-#a5!l1ip7l7pvu2b4k#)n*f(@6f2o+ff$96-)_$"
       run: |
         # Проверяем команды внутри папки source, так как manage.py лежит там
         cd source
