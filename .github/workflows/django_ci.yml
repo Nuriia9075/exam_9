@@ -30,9 +30,19 @@ jobs:
         # Передаем обязательные параметры, включая общую строку подключения к PostgreSQL
         SECRET_KEY: 'django-insecure-@_qiz6lnw#-#a5!l1ip7l7pvu2b4k#)n*f(@6f2o+ff$96-)_$'
         DEBUG: 'True'
-        DB_URL: 'postgresql://postgres:postgres@postgres:5432/exam9_db'
+        
+        # Подключаемся через 127.0.0.1 с таймаутом ожидания
+        DB_URL: 'postgresql://postgres:postgres@127.0.0.1:5432/exam9_db?connect_timeout=10'
       run: |
+        echo "Ожидание доступности порта PostgreSQL..."
+        until nc -z -v -w3 127.0.0.1 5432; do
+          echo "База данных еще поднимается, ждем 2 секунды..."
+          sleep 2
+        done
+        echo "База данных успешно запущена! Запуск миграций..."
+        
         cd source
         python manage.py makemigrations --check --dry-run
         python manage.py migrate
+
 
