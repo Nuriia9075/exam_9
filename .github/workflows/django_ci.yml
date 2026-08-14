@@ -1,6 +1,6 @@
 name: Django CI/CD Pipeline
 env:
-  SECRET_KEY: "ci-testing-secret-key-placeholder"
+  SECRET_KEY: "django-insecure-@_qiz6lnw#-#a5!l1ip7l7pvu2b4k#)n*f(@6f2o+ff$96-)_$"
 
 on:
   push:
