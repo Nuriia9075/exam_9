@@ -30,7 +30,7 @@ jobs:
         # Передаем обязательные параметры, включая общую строку подключения к PostgreSQL
         SECRET_KEY: 'django-insecure-@_qiz6lnw#-#a5!l1ip7l7pvu2b4k#)n*f(@6f2o+ff$96-)_$'
         DEBUG: 'True'
-        DB_URL: 'postgresql://postgres:postgres@localhost:5432/exam9_db'
+        DB_URL: 'postgresql://postgres:postgres@postgres:5432/exam9_db'
       run: |
         cd source
         python manage.py makemigrations --check --dry-run
