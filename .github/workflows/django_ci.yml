@@ -1,0 +1,33 @@
+name: Django CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "master", "dev" ]
+  pull_request:
+    branches: [ "main", "master", "dev" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Проверка исходного кода (Checkout)
+      uses: actions/checkout@v4
+
+    - name: Установка Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Установка зависимостей
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f source/requirements.txt ]; then pip install -r source/requirements.txt; fi
+
+    - name: Проверка миграций базы данных Django
+      run: |
+        # Проверяем команды внутри папки source, так как manage.py лежит там
+        cd source
+        python manage.py makemigrations --check --dry-run
+        python manage.py migrate
